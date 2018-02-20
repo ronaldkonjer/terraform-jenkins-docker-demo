@@ -4,7 +4,7 @@ data "template_file" "myapp-task-definition-template" {
   template               = "${file("templates/app.json.tpl")}"
   vars {
     REPOSITORY_URL = "${replace("${aws_ecr_repository.myapp.repository_url}", "https://", "")}"
-    APP_VERSION = "${var.MYAPP_VERSION}"
+    APP_VERSION = "${var.MYAPP_VERSION}"  # jenkins build version
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "myapp-task-definition" {
 }
 
 resource "aws_ecs_service" "myapp-service" {
-  count = "${var.MYAPP_SERVICE_ENABLE}"
+  count = "${var.MYAPP_SERVICE_ENABLE}"  # when 0 do nothing
   name = "myapp"
   cluster = "${aws_ecs_cluster.example-cluster.id}"
   task_definition = "${aws_ecs_task_definition.myapp-task-definition.arn}"

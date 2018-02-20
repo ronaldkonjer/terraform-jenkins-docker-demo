@@ -32,6 +32,6 @@ variable "INSTANCE_DEVICE_NAME" {
   default = "/dev/xvdh"
 }
 variable "JENKINS_VERSION" {
-  default = "2.32.1"
+  default = "2.89.4"
 }
 
